@@ -183,8 +183,12 @@ class CacheStore {
       _futureCache.remove(cacheObject.key);
     }
     final file = await fileSystem.createFile(cacheObject.relativePath);
-    if (await file.exists()) {
-      await file.delete();
+    try {
+      if (await file.exists()) {
+        await file.delete();
+      }
+    } catch (e) {
+      //i dont need log
     }
   }
 
